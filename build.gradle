@@ -90,9 +90,9 @@ obfuscation {
 dependencies {
 //    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    modImplementation "curse.maven:curios-309927:6418456"
-    modImplementation "curse.maven:geckolib-388172:6622543"
-    modImplementation "curse.maven:dungeons-and-combat-1128235:6577637"
+//    modImplementation "curse.maven:curios-309927:6418456"
+//    modImplementation "curse.maven:geckolib-388172:6622543"
+//    modImplementation "curse.maven:dungeons-and-combat-1128235:6577637"
 
 //    modImplementation "curse.maven:placebo-283644:6274231"
 //    modImplementation "curse.maven:apothic-attributes-898963:5634071"
