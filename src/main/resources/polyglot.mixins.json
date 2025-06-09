@@ -5,9 +5,9 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "polyglot.refmap.json",
   "mixins": [
-    "ItemMixin"
   ],
   "client": [
+    "ClientLanguageMixin"
   ],
   "injectors": {
     "defaultRequire": 1
