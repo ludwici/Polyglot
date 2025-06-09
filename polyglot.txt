@@ -1,0 +1,69 @@
+Для создания перевода нужно в моде в файле локализации добавить строчки в таком формате:
+
+{
+  "item.dungeons_and_combat.molten_blazing_sword.polyglot.desc1": "§7Hit Effect:_&_§7Хит эффект:",
+  "item.dungeons_and_combat.molten_blazing_sword.polyglot.desc2": " §9Fire_&_ §9Огонь"
+}
+
+
+Как это работает
+У перевода есть свой ключ:
+item.dungeons_and_combat.molten_blazing_sword.polyglot.desc1
+Он состоит из двух частей
+item.dungeons_and_combat.molten_blazing_sword - это оригинальный ключ итема
+polyglot.desc1 - это дополнительный ключ, который позволяет добавлять определять какой текст надо заменить
+
+Сам текст перевода выглядит вот так:
+§7Hit Effect:_&_§7Хит эффект:
+Он состоит из трёх частей
+§7Hit Effect: - это текст, который мы хотим заменить
+§7Хит эффект: - это текст, на который будет заменяться
+_&_ - это обязательный разделитель, который позволяет разделить текст который надо заменить и текст перевода
+
+Важно: если нужно в одном итеме есть несколько текстов которые надо переводить, то должен быть сохранён порядок ключей мода. Что я имею ввиду. Например в файле есть текст с тамими ключами:
+
+mykey.polyglot.desc1
+mykey.polyglot.desc2
+mykey.polyglot.desc3
+
+Они пронумерованы от 1 до 3 - это хорошо. Но если будет так:
+
+mykey.polyglot.desc1
+mykey.polyglot.desc3
+mykey.polyglot.desc4
+
+То переведётся только первая строчка. Остальные будут пропущены, так как последовательность нарушена
+
+У мода есть упрощённая возможность работы с тултипой
+Если навести курсор итем и нажать англ кнопку P (можно перебиндить), то в файл логов запишутся строчки тултипы итема, чтобы можно было легко копировать текст. Данные записываются в таком формате:
+
+
+[04:54:17] [Render thread/INFO]: ---Polyglot: [item.dungeons_and_combat.silver_dagger]---
+[04:54:17] [Render thread/INFO]: |Silver Dagger
+[04:54:17] [Render thread/INFO]: |§7Hit Effect:
+[04:54:17] [Render thread/INFO]: | §9Strength against the Udead type
+[04:54:17] [Render thread/INFO]: |
+[04:54:17] [Render thread/INFO]: |Когда в ведущей руке:
+[04:54:17] [Render thread/INFO]: | Урон: 5.3
+[04:54:17] [Render thread/INFO]: | Скорость атаки: 2.5
+[04:54:17] [Render thread/INFO]: |dungeons_and_combat:silver_dagger
+[04:54:17] [Render thread/INFO]: |NBT: 1 тег(ов)
+[04:54:17] [Render thread/INFO]: ---
+[04:54:18] [Render thread/INFO]: ---Polyglot: [item.dungeons_and_combat.blessed_gold_fist]---
+[04:54:18] [Render thread/INFO]: |§eBlessed Gold Fist
+[04:54:18] [Render thread/INFO]: |§7Ability:
+[04:54:18] [Render thread/INFO]: | §9Haste V for 3 seconds if it's daytime
+[04:54:18] [Render thread/INFO]: |
+[04:54:18] [Render thread/INFO]: |Когда в ведущей руке:
+[04:54:18] [Render thread/INFO]: | Урон: 7
+[04:54:18] [Render thread/INFO]: | Скорость атаки: 3
+[04:54:18] [Render thread/INFO]: |dungeons_and_combat:blessed_gold_fist
+[04:54:18] [Render thread/INFO]: |NBT: 1 тег(ов)
+[04:54:18] [Render thread/INFO]: ---
+
+
+Можно легко найти по ключевому слову Polyglot, в квадратных скобках пишется айди итема
+Затем построчно пишется содержимое тултипы. Стоит отметить что текст начинается с символа |. Это сделано не просто так. Как видно некоторые подсказки имеют перед текстом пробел. Для того чтобы понимать где начинается текст я вставил символ |
+
+Тут важный момент, ибо в файл локализации нужно вписывать текст который на 100% совпадает в тем что написано в тултипе
+То есть если там стоит один пробел в начале и десять пробелов в конце - в файле локализации они тоже быть должны

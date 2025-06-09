@@ -1,16 +1,17 @@
 package com.ludwici.polyglot;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -30,8 +31,8 @@ import java.util.ListIterator;
 public class Polyglot {
     public static final String MODID = "polyglot";
 
-    private static ItemStack item;
-    private static boolean canPrint = false;
+    public static final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer()).create();
+
     private static int ticks = 0;
     private static int lastTick = 0;
 
@@ -42,12 +43,6 @@ public class Polyglot {
         IEventBus modEventBus = context.getModEventBus();
         MinecraftForge.EVENT_BUS.addListener(Polyglot::onTooltip);
         MinecraftForge.EVENT_BUS.addListener(Polyglot::onKeyPress);
-//        ForgeRegistries.ITEMS.forEach(item -> {
-//            String modid = item.getCreatorModId(item.getDefaultInstance());
-//            if (modid.equals("cataclysm")) {
-//
-//            }
-//        });
     }
 
 
@@ -62,7 +57,6 @@ public class Polyglot {
     }
 
     public static void onTooltip(ItemTooltipEvent event) {
-        item = null;
         ItemStack pStack = event.getItemStack();
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) {
@@ -81,8 +75,6 @@ public class Polyglot {
         if (orig.isEmpty()) {
             return;
         }
-
-        item = pStack;
 
         ListIterator<Component> iter = orig.listIterator();
 
@@ -103,11 +95,12 @@ public class Polyglot {
             do {
                 String key = "item." + res.getNamespace() + "." + res.getPath() + ".polyglot.desc" + ++i;
 
-                MutableComponent component = Component.translatableWithFallback(key, "empty");
-                if (component.getString().equals("empty")) {
+                var entry = DataLoader.INSTANCE.translate.getOrDefault(key, "empty");
+
+                if (entry.equals("empty")) {
                     break;
                 } else {
-                    String[] parts = component.getString().split("_&_", 2);
+                    String[] parts = entry.split("_&_", 2);
                     if (parts.length == 2) {
                         if (c.getString().equals(parts[0])) {
                             iter.set(Component.literal(parts[1]));
@@ -126,6 +119,11 @@ public class Polyglot {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+        }
+
+        @SubscribeEvent
+        public static void onRegisterReloadListeners(RegisterClientReloadListenersEvent event) {
+            event.registerReloadListener(DataLoader.INSTANCE);
         }
     }
 }
