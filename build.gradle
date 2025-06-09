@@ -73,9 +73,10 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation fg.deobf("curse.maven:curios-309927:6418456")
-    implementation fg.deobf("curse.maven:geckolib-388172:6622543")
-    implementation fg.deobf("curse.maven:dungeons-and-combat-1128235:6577637")
+//    implementation fg.deobf("curse.maven:curios-309927:6418456")
+//    implementation fg.deobf("curse.maven:geckolib-388172:6622543")
+//    implementation fg.deobf("curse.maven:dungeons-and-combat-1128235:6577637")
+
 //    implementation fg.deobf("curse.maven:lionfish-api-1001614:5922047")
 //    implementation fg.deobf("curse.maven:lendercataclysm-551586:6501448")
 }
