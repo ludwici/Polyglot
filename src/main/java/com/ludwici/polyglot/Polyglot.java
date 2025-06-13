@@ -36,7 +36,7 @@ public class Polyglot {
     private static int ticks = 0;
     private static int lastTick = 0;
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
 
     public Polyglot(FMLJavaModLoadingContext context) {

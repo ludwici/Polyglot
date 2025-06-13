@@ -1,3 +1,6 @@
 {
-  "key.polyglot.print_tooltip": "Сохранить описание"
+  "key.polyglot.print_tooltip": "Сохранить описание",
+
+  "polyglot.warn.exist_key": "Ключ с идентификатором %s уже существует",
+  "polyglot.error.read_file_error": "Ошибка чтения файла %s"
 }

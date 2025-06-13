@@ -1,0 +1,6 @@
+{
+  "key.polyglot.print_tooltip": "Print tooltip",
+
+  "polyglot.warn.exist_key": "The key with identifier %s already exists",
+  "polyglot.error.read_file_error": "Failed to read %s file"
+}
